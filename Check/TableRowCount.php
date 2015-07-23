@@ -28,7 +28,7 @@ class TableRowCount extends AbstractCheck
             $connection = $this->manager->getConnection($this->connectionName);
             $result = $connection->fetchColumn('SELECT COUNT(id) FROM ' . $this->tableName . ';');
 
-            if($result > $this->minRowCount) {
+            if($result >= $this->minRowCount) {
                 return new Success($result . ' rows in ' . $this->tableName );
             }
 
