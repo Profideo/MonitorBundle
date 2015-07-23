@@ -1,0 +1,30 @@
+{
+    "name" : "profideo/monitorBundle",
+    "description" : "A demo bundle",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Alban Duval",
+        "email" : "aduval@profideo.com"
+    }],
+    "keywords" : [
+        "Custom checks monitor"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Profideo\\MonitorBundle" : ""
+        }
+    },
+    "target-dir" : "Profideo/MonitorBundle",
+    "repositories" : [{
+    }],
+    "extra" : {
+    "branch-alias" : {
+            "dev-master" : "master"
+        }
+    }
+}
