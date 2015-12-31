@@ -6,28 +6,40 @@ use Doctrine\Common\Persistence\ConnectionRegistry;
 use ZendDiagnostics\Check\CheckCollectionInterface;
 
 /**
- * @author Kevin Bond <kevinbond@gmail.com>
+ * @author Florent SEVESTRE <fsevestre@profideo.com>
  */
-class TableRowCountCollection implements CheckCollectionInterface
+final class TableRowCountCollection implements CheckCollectionInterface
 {
+    /**
+     * @var array
+     */
     private $checks = array();
 
-    public function __construct(ConnectionRegistry $manager, $tableNames, $minRowCount)
+    /**
+     * @param ConnectionRegistry $manager
+     * @param array              $configs
+     */
+    public function __construct(ConnectionRegistry $manager, array $configs)
     {
-        if (!is_array($tableNames)) {
-            $tableNames = array($tableNames);
-        }
+        foreach ($configs as $groupName => $config) {
+            $maxRows = isset($config['max_rows']) ? $config['max_rows'] : null;
 
-        foreach ($tableNames as $tableName) {
-            $check = new TableRowCount($manager, $tableName, $minRowCount);
-            $check->setLabel(sprintf('Table Row Count on "%s"', $tableName));
+            $check = new TableRowCount($manager, $config['tables'], $config['min_rows'], $maxRows);
+            $check->setLabel(
+                sprintf(
+                    'Row count in "%s" table group (min: %d, max: %s)',
+                    $groupName,
+                    $config['min_rows'],
+                    null !== $maxRows ? $maxRows : 'none'
+                )
+            );
 
-            $this->checks[sprintf('table_row_count_%s', $tableName)] = $check;
+            $this->checks[sprintf('table_row_count_%s', $groupName)] = $check;
         }
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getChecks()
     {
