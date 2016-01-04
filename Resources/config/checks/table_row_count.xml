@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="profideo_monitor.check.table_row_count.class">Profideo\MonitorBundle\Check\TableRowCountCollection</parameter>
+    </parameters>
+
+    <services>
+        <service id="profideo_monitor.check.table_row_count" public="false" class="%profideo_monitor.check.table_row_count.class%">
+            <argument type="service" id="doctrine" />
+            <argument>%profideo_monitor.check.table_row_count%</argument>
+            <tag name="liip_monitor.check_collection" />
+        </service>
+    </services>
+</container>
