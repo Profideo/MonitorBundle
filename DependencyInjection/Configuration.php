@@ -63,7 +63,6 @@ class Configuration implements ConfigurationInterface
                     ->integerNode('min_rows')
                         ->isRequired()
                         ->min(0)
-                        ->cannotBeEmpty()
                     ->end()
 
                     ->integerNode('max_rows')
