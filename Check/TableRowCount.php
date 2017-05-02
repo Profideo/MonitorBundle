@@ -73,6 +73,8 @@ SQL
             }
         }
 
+        $messages = implode(', ', $messages);
+
         return $failure ? new Failure($messages) : new Success($messages);
     }
 }
